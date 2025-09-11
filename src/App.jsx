@@ -4,7 +4,7 @@ import "./App.css";
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import Hero from "./components/Hero";
-import VideoPage from "./components/VideoPage";
+import WatchPage from "./components/WatchPage";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
@@ -14,8 +14,8 @@ function App() {
   };
 
   return (
-    <div className="bg-slate-900 h-full">
-      <Router>
+    <Router>
+      <div className="bg-slate-900 h-full">
         <Header onSearchResults={handleSearchResults}>
           <Routes>
             <Route
@@ -27,11 +27,11 @@ function App() {
                 </>
               }
             />
-            <Route path="/watch/:id" element={<VideoPage />} />
+            <Route path="/watch/:id" element={<WatchPage />} />
           </Routes>
         </Header>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

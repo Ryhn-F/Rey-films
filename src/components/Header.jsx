@@ -24,7 +24,6 @@ export default function Header({ children, onSearchResults }) {
   };
 
   const [query, setQuery] = useState("");
-  const [shows, setShows] = useState([]);
 
   const searchTV = async (e) => {
     e.preventDefault();
@@ -32,7 +31,6 @@ export default function Header({ children, onSearchResults }) {
       const res = await axios.get("https://api.tvmaze.com/search/shows", {
         params: { q: query },
       });
-      setShows(res.data);
       onSearchResults(res.data);
     } catch (error) {
       console.log("Oops, terjadi kesalahan!", error);
