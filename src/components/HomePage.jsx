@@ -1,7 +1,9 @@
 import { useState, React, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import { Star } from "lucide-react";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 
 const HomePage = ({ searchResults }) => {
@@ -32,18 +34,18 @@ const HomePage = ({ searchResults }) => {
   if (error) return <div>Error : {error}</div>;
 
   return (
-    <div>
-      <h1 className="text-5xl text-center text-white  font-bold"> Our Film</h1>
+    <div className="pb-20">
+      <h1 className="text-5xl text-center text-primary font-bold tracking-widest uppercase">Now Showing</h1>
       <div className=" justify-center items-center p-20 flex-row flex-wrap grid lg:grid-cols-7 md:grid-cols-3 sm:grid-cols-2 gap-5  ">
         <AnimatePresence mode="wait">
-          {posts.map((post, index) => (
+          {posts.map((post) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="w-60 bg-slate-800 rounded-xl p-3 shadow-2xl hover:scale-105 transition-all duration-300"
+              className="w-60 bg-gray-900 rounded-xl p-3 shadow-2xl hover:scale-105 transition-all duration-300 hover:shadow-primary/50"
             >
               <motion.img
                 initial={{ opacity: 0 }}
@@ -91,13 +93,15 @@ const HomePage = ({ searchResults }) => {
                 className="flex justify-between"
               >
                 <p className="text-white mt-3">{post.premiered || "Unknown"}</p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-indigo-500 text-white hover:bg-indigo-300 rounded-xl px-5 py-0.5 mt-3 transition-all duration-200"
-                >
-                  Play
-                </motion.button>
+                <Link to={`/watch/${post.id}`}>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-primary text-background hover:bg-secondary rounded-xl px-5 py-0.5 mt-3 transition-all duration-200"
+                  >
+                    Watch
+                  </motion.button>
+                </Link>
               </motion.div>
             </motion.div>
           ))}
