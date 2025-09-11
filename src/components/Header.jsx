@@ -24,7 +24,6 @@ export default function Header({ children, onSearchResults }) {
   };
 
   const [query, setQuery] = useState("");
-  const [shows, setShows] = useState([]);
 
   const searchTV = async (e) => {
     e.preventDefault();
@@ -32,7 +31,6 @@ export default function Header({ children, onSearchResults }) {
       const res = await axios.get("https://api.tvmaze.com/search/shows", {
         params: { q: query },
       });
-      setShows(res.data);
       onSearchResults(res.data);
     } catch (error) {
       console.log("Oops, terjadi kesalahan!", error);
@@ -58,11 +56,11 @@ export default function Header({ children, onSearchResults }) {
 
   return (
     <div>
-      <header className="h-16 text-[15px] fixed inset-0 flex items-center justify-center bg-[#18181A] z-50">
+      <header className="h-16 text-[15px] fixed inset-0 flex items-center justify-center bg-background z-50">
         <nav className="px-3.5 flex items-center justify-between w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-x-3 z-[999] relative">
             <img src="/vite.svg" alt="Logo" className="size-8" />
-            <h3 className="text-lg font-semibold text-white">Ray Films</h3>
+            <h3 className="text-lg font-semibold text-primary">Ray's Film</h3>
           </div>
 
           {/* Search Bar */}
@@ -74,12 +72,12 @@ export default function Header({ children, onSearchResults }) {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search..."
-              className="w-full px-4 py-2 rounded-lg bg-[#2A2A2D] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="Search for a show..."
+              className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="px-4 py-2 bg-primary text-background rounded-lg hover:bg-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-secondary"
             >
               Search
             </button>
@@ -128,11 +126,11 @@ export default function Header({ children, onSearchResults }) {
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden lg:flex items-center space-x-6 text-white">
+          <ul className="hidden lg:flex items-center space-x-8 text-white">
             {menuItems.map((item, index) => (
               <li
                 key={index}
-                className="relative cursor-pointer"
+                className="relative cursor-pointer nav-link-underline"
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
               >
@@ -147,11 +145,11 @@ export default function Header({ children, onSearchResults }) {
                   )}
                 </div>
                 {item.hasSubmenu && item.isOpen && (
-                  <div className="absolute top-full left-0 bg-[#18181A] py-2 px-4 rounded-md min-w-[150px] mt-2">
+                  <div className="absolute top-full left-0 bg-background py-2 px-4 rounded-md min-w-[150px] mt-2 shadow-lg">
                     <ul className="space-y-2">
-                      <li>Submenu Item 1</li>
-                      <li>Submenu Item 2</li>
-                      <li>Submenu Item 3</li>
+                      <li className="hover:text-primary">Submenu Item 1</li>
+                      <li className="hover:text-primary">Submenu Item 2</li>
+                      <li className="hover:text-primary">Submenu Item 3</li>
                     </ul>
                   </div>
                 )}
