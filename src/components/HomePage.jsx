@@ -3,11 +3,13 @@ import "../App.css";
 import axios from "axios";
 import { Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = ({ searchResults }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (searchResults && searchResults.length > 0) {
@@ -36,7 +38,7 @@ const HomePage = ({ searchResults }) => {
       <h1 className="text-5xl text-center text-white  font-bold"> Our Film</h1>
       <div className=" justify-center items-center p-20 flex-row flex-wrap grid lg:grid-cols-7 md:grid-cols-3 sm:grid-cols-2 gap-5  ">
         <AnimatePresence mode="wait">
-          {posts.map((post, index) => (
+          {posts.map((post) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
@@ -95,8 +97,9 @@ const HomePage = ({ searchResults }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-indigo-500 text-white hover:bg-indigo-300 rounded-xl px-5 py-0.5 mt-3 transition-all duration-200"
+                  onClick={() => navigate(`/watch/${post.id}`)}
                 >
-                  Play
+                  Watch
                 </motion.button>
               </motion.div>
             </motion.div>
